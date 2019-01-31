@@ -1,0 +1,93 @@
+{% extends "layouts.html" %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type = "text/css" href="../static/css/setExpiry.css">
+    <title>Title</title>
+{% endblock %}
+{% block body %}
+    <br><br><br><br>
+<h1 id = "heading1">Set Expiry Date</h1>
+<form id = "todoForm2" method="post">
+    Item name: <input type = "text" id = "itemName"><br>
+    Remarks: <input type = "text" id = "itemRemark"><br>
+
+<h2 id = "heading2">Set date of expiry</h2>
+
+    dd: <input type = "text" id = "expiryDay"><br>
+    mm: <input type = "text" id = "expiryMonth"><br>
+    yyyy: <input type = "text" id = "expiryYear"><br><br>
+    <button type = "button" id = "button1" onclick = "saveChanges()">Save Changes</button>
+</form>
+
+<script>
+    function saveChanges() {
+        var date1 = document.getElementById("expiryDay").value;
+        var month1 = document.getElementById("expiryMonth").value;
+        var year1 = document.getElementById("expiryYear").value;
+        date1 = parseInt(date1);
+        month1 = parseInt(month1);
+        year1 = parseInt(year1);
+        n = new Date();
+        currentYear = n.getFullYear();
+        currentMonth = n.getMonth() + 1;
+        currentDay = n.getDate();
+        console.log(currentYear, currentMonth, currentDay, date1, month1, year1);
+        if (year1 >= currentYear) {
+            var yearDifference = year1 - currentYear;
+            console.log(yearDifference)
+            if (month1 >= currentMonth) {
+                var monthDifference = month1 - currentMonth;
+                console.log(monthDifference)
+                if (date1 >= currentDay) {
+                    var dateDifference = date1 - currentDay;
+                    console.log(dateDifference)
+
+
+                }
+                else{
+                    dateDifference = 0;
+                }
+            }
+            else if (date1 >= currentDay) {
+                var dateDifference1 = date1 - currentDay;
+            }
+            else{
+                dateDifference = 0;
+                monthDifference = 0;
+            }
+
+        }
+
+
+        else {
+            if (month1 >= currentMonth) {
+                var monthDifference1 = month1 - currentMonth;
+                if (date1 >= currentDay) {
+                    var dateDifference1 = date1 - currentDay;
+                }
+                else {
+                    dateDifference = 0;
+                }
+            }
+            else if (date1 >= currentDay) {
+                var dateDifference = date1 - currentDay;
+            }
+            else{
+                dateDifference = 0;
+                monthDifference = 0;
+            }
+        }
+        //console.log(dateDifference)
+        var totalDays = dateDifference + monthDifference * 30 + yearDifference * 365;
+        console.log(totalDays);
+
+        var name = document.getElementById("itemName").value;
+        var remark = document.getElementById("itemRemark").value;
+        var item = name + " " +remark;
+        console.log(item);
+        alert("Item saved!")
+    }
+
+
+</script>
+{% endblock %}
